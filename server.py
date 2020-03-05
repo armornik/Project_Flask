@@ -7,7 +7,7 @@ app = Flask(__name__)
 # use decorator
 @app.route('/')
 def index():
-    title = 'Прогноз погоды'
+    title = 'Новости Python'
     weather = weather_by_city('Moscow,Russia')
     return render_template('index.html', page_title=title, weather=weather)
 
