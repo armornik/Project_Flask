@@ -1,10 +1,9 @@
 import requests
-from params_weather import key_id
+from params_weather import key_id, weather_url
 
 
 
 def weather_by_city(city_name):
-    weather_url = 'https://api.worldweatheronline.com/premium/v1/weather.ashx'
     params = {
         'key': key_id,
         'q': city_name,
