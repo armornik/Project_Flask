@@ -1,5 +1,5 @@
 import requests
-from params_weather import key_id, weather_url
+from webapp.params_weather import key_id, weather_url
 
 
 
