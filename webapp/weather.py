@@ -1,11 +1,11 @@
 import requests
-from webapp.params_weather import key_id, weather_url
 
+from flask import current_app
 
 
 def weather_by_city(city_name):
     params = {
-        'key': key_id,
+        'key': current_app.config['WEATHER_API_KEY'],
         'q': city_name,
         'format': 'json',
         'num_of_days': '1',
@@ -13,7 +13,7 @@ def weather_by_city(city_name):
     }
 
     try:
-        result = requests.get(weather_url, params=params)
+        result = requests.get(current_app.config['WEATHER_URL'], params=params)
         # Обработка 400 и 500 ошибок
         result.raise_for_status()
         weather = result.json()
