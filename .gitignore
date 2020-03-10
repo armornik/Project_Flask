@@ -3,4 +3,4 @@ __pycache__
 web
 .git
 .idea
-config.py
+webapp/config.py
