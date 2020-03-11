@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 
+from webapp.model import db
 from webapp.python_org_news import get_python_news
 from webapp.weather import weather_by_city
 
@@ -7,7 +8,10 @@ from webapp.weather import weather_by_city
 def create_app():
     # initialization our application with name 'server'
     app = Flask(__name__)
+    # Доступ к переменным в config.py
     app.config.from_pyfile('config.py')
+    # Инициализация базы данных
+    db.init_app(app)
 
     # use decorator
     @app.route('/')
