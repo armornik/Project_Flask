@@ -4,3 +4,4 @@ web
 .git
 .idea
 webapp/config.py
+*.db
