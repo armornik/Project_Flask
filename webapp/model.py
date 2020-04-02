@@ -31,5 +31,10 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    # @property позволяет вызывать метод как атрибут (без скобочек)
+    @property
+    def is_admin(self):
+        return self.role == 'admin'
+
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}, id {}>'.format(self.username, self.id)
