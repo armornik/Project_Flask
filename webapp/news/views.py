@@ -15,4 +15,4 @@ def index():
     # order_by(News.published) - Сортировка по дате.
     # desc() - в обратном порядке
     news_list = News.query.order_by(News.published.desc()).all()
-    return render_template('index.html', page_title=title, weather=weather, news_list=news_list)
+    return render_template('news/index.html', page_title=title, weather=weather, news_list=news_list)

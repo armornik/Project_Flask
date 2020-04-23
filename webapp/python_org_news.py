@@ -22,6 +22,7 @@ def get_python_news():
     if html:
         soup = BeautifulSoup(html, 'html.parser')
         all_news = soup.find('ul', class_='list-recent-posts').find_all('li')
+        # result_news = []
         for news in all_news:
             title = news.find('a').text
             url = news.find('a')['href']
