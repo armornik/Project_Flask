@@ -3,6 +3,7 @@
 # url_for - помогает получить url по имени функции, которая этот url обрабатывает
 from flask import Flask
 from flask_login import LoginManager
+from flask_migrate import Migrate
 
 from webapp.db import db
 from webapp.admin.views import blueprint as admin_blueprint
@@ -18,6 +19,13 @@ def create_app():
     app.config.from_pyfile('config.py')
     # Инициализация базы данных
     db.init_app(app)
+    # export FLASK_APP=webapp && flask db init --> команда "инициализации" миграций
+    # mv webapp.db webapp.db.old - переименование (копирование) базы данных
+    # export FLASK_APP=webapp && flask db migrate -m "users and news tables" --> создание миграции
+    # flask db upgrade --> подтвердить миграцию
+    # mv webapp.db.old webapp.db --> переписать старые данные в новую базу и удалить базу из которой переносим
+    # flask db stamp {Revision number from migration version} - применить миграцию к уже существующей
+    migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
