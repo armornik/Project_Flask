@@ -1,0 +1,15 @@
+{% extends "base_news.html" %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-8 news-content">
+                <h1>{{ page_title }}</h1>
+                <!-- safe - что мы доверяем информации и её не надо экранировать (фильтр)-->
+               {{ news.text|safe }}
+            </div>
+            <div class="col-4">
+                <h2>Другие новости</h2>
+
+            </div>
+        </div>
+{% endblock %}
