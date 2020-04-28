@@ -24,8 +24,10 @@ def create_app():
     # export FLASK_APP=webapp && flask db migrate -m "users and news tables" --> создание миграции
     # flask db upgrade --> подтвердить миграцию
     # mv webapp.db.old webapp.db --> переписать старые данные в новую базу и удалить базу из которой переносим
-    # flask db stamp {Revision number from migration version} - применить миграцию к уже существующей
+    # flask db stamp {Revision number from migration version} - поменять номер миграции в таблице
     migrate = Migrate(app, db)
+
+    # export FLASK_APP=webapp && flask shell - запуск python c flask контекстом
 
     login_manager = LoginManager()
     login_manager.init_app(app)

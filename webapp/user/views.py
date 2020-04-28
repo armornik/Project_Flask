@@ -7,6 +7,7 @@ from flask_login import current_user, login_user, logout_user
 from webapp.db import db
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import User
+from webapp.utils import get_redirect_target
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
@@ -14,7 +15,8 @@ blueprint = Blueprint('user', __name__, url_prefix='/users')
 @blueprint.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('news.index'))
+        # если пользователь авторизован - перенаправлять его на страницу с которой он пришёл
+        return redirect(get_redirect_target())
     title = 'Авторизация'
     login_form = LoginForm()
     return render_template('user/login.html', page_title=title, form=login_form)
@@ -30,7 +32,8 @@ def process_login():
             # remember=form.remember_me.data - возвращает True or False в зависимости от галочки в чек-боксе
             login_user(user, remember=form.remember_me.data)
             flash('Вы вошли на сайт')
-            return redirect(url_for('news.index'))
+            return redirect(url_for(get_redirect_target()))
+
     flash('Неправильное имя пользователя или пароль')
     return redirect(url_for('user.login'))
 
@@ -56,7 +59,6 @@ def process_reg():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        print(1)
         new_user = User(username=form.username.data, email=form.email.data, role='user')
         # set_password - создать пароль
         new_user.set_password(form.password.data)
@@ -69,4 +71,3 @@ def process_reg():
             for error in errors:
                 flash('Ошибка в поле "{}" - {}'.format(getattr(form, fields).label.text, error))
         return redirect(url_for('user.register'))
-
